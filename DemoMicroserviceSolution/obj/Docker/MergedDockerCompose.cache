@@ -1,0 +1,18 @@
+name: dockercompose9173877790822189969
+services:
+  customerwebapi:
+    build:
+      context: C:\Users\AKirschstein\Documents\Dev\MovieWebApp\DemoMicroserviceSolution
+      dockerfile: CustomerWebApi/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: customerwebapi
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+networks:
+  default:
+    name: dockercompose9173877790822189969_default

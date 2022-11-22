@@ -1,0 +1,39 @@
+name: dockercompose9173877790822189969
+services:
+  customerdb:
+    container_name: customer-db
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password@12345#
+    image: harbor.init.de/microsoft/mssql/server:2019-CU13-ubuntu-16.04
+    networks:
+      backend: null
+    ports:
+    - mode: ingress
+      target: 1433
+      published: "8001"
+      protocol: tcp
+  customerwebapi:
+    build:
+      context: C:\Users\AKirschstein\Documents\Dev\MovieWebApp\DemoMicroserviceSolution
+      dockerfile: CustomerWebApi/Dockerfile
+    container_name: customer-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DB_HOST: customer-db
+      DB_NAME: customer
+      DB_SA_PASSWORD: Password@12345#
+    image: customerwebapi
+    networks:
+      backend: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8002"
+      protocol: tcp
+networks:
+  backend:
+    name: dockercompose9173877790822189969_backend
